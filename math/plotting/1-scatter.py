@@ -10,7 +10,7 @@ y += 180
 
 
 # Plotting the scatter plot
-plt.scatter(x, y, color='magenta', label='Height vs Weight')
+plt.scatter(x, y, color='magenta', s=10, label='Height vs Weight')
 plt.xlabel('Height (in)')
 plt.ylabel('Weight (lbs)')
 plt.title("Men's Height vs Weight")
