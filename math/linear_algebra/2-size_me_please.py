@@ -2,10 +2,8 @@
 def matrix_shape(matrix):
     """
     Calculates the shape of a matrix.
-    
     Args:
         matrix: A list (or nested lists) representing a matrix.
-    
     Returns:
         A list of integers representing the shape of the matrix.
     """
