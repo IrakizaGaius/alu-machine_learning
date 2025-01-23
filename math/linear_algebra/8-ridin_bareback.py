@@ -2,6 +2,7 @@
 
 """  Multiplies two matrices  """
 
+
 def mat_mul(mat1, mat2):
     """  Multiplies two matrices  """
     if len(mat1[0]) != len(mat2):
