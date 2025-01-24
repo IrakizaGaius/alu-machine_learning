@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+""" 10-ill_use_my_scale  """
+
+
+def np_shape(matrix):
+    """ np_shape - calculates the shape of a numpy.ndarray """
+    return matrix.shape
