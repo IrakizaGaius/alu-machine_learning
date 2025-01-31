@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Defines function that calculates the minor matrix of a matrix
+    Defines function that calculates the cofactor matrix of a matrix
 """
 
 
-def minor(matrix):
+def cofactor(matrix):
     """
-    Calculates the minor matrix of a matrix
+    Calculates the cofactor matrix of a matrix
 
     parameters:
         matrix [list of lists]:
-            matrix whose minor matrix should be calculated
+            matrix whose cofactor matrix should be calculated
 
     returns:
-        the minor matrix of matrix
+        the cofactor matrix of matrix
     """
     if type(matrix) is not list:
         raise TypeError("matrix must be a list of lists")
@@ -27,9 +27,10 @@ def minor(matrix):
             raise ValueError("matrix must be a non-empty square matrix")
     if height is 1:
         return [[1]]
-    minor_matrix = []
+    multiplier = 1
+    cofactor_matrix = []
     for row_i in range(height):
-        minor_row = []
+        cofactor_row = []
         for column_i in range(height):
             sub_matrix = []
             for row in range(height):
@@ -41,9 +42,12 @@ def minor(matrix):
                         continue
                     new_row.append(matrix[row][column])
                 sub_matrix.append(new_row)
-            minor_row.append(determinant(sub_matrix))
-        minor_matrix.append(minor_row)
-    return minor_matrix
+            cofactor_row.append(multiplier * determinant(sub_matrix))
+            multiplier *= -1
+        cofactor_matrix.append(cofactor_row)
+        if height % 2 is 0:
+            multiplier *= -1
+    return cofactor_matrix
 
 
 def determinant(matrix):
@@ -93,4 +97,4 @@ def determinant(matrix):
             sub_matrix.append(new_row)
         d += (element * multiplier * determinant(sub_matrix))
         multiplier *= -1
-    return (d)
+    return d
