@@ -2,12 +2,20 @@
 """Derivative of a polynomial"""
 
 
-def poly_derivative(poly: list) -> list:
-    """Derivative of a polynomial"""
-    if not isinstance(poly, list) or any(not isinstance(i, (int, float)) for i in poly):
+def poly_derivative(poly):
+    """Calculates the derivative of a polynomial"""
+    # Validate input
+    if not isinstance(poly, list):
         return None
-    if len(poly) <= 1:
-        return None  # Return None for an empty or single-element list
-    return [
-        poly[i] * i for i in range(1, len(poly))
-    ]
+    if any(not isinstance(x, (int, float)) for x in poly):
+        return None
+    if len(poly) == 0:  # Ensure an empty polynomial returns None
+        return None
+    if len(poly) == 1:  # The derivative of a constant is 0
+        return [0]
+    # Compute the derivative
+    derivative = [poly[i] * i for i in range(1, len(poly))]
+    # Trim trailing zeros to match expected format
+    while len(derivative) > 1 and derivative[-1] == 0:
+        derivative.pop()
+    return derivative
