@@ -8,7 +8,7 @@ def poly_integral(poly, C=0):
     # Validate input
     if not isinstance(poly, list) or not isinstance(C, (int, float)):
         return None
-    if len(poly) == 0 or any(not isinstance(coef, (int, float)) for coef in poly):
+    if len(poly) == 0 or any(not isinstance(x, (int, float)) for x in poly):
         return None
     # Compute the integral
     integral = [C]  # Add constant of integration first
