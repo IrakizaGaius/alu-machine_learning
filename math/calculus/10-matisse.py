@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Derivative of a polynomial"""
 
+
 def poly_derivative(poly: list) -> list:
     """Derivative of a polynomial"""
     if not isinstance(poly, list) or not all(isinstance(i, (int, float)) for i in poly):
