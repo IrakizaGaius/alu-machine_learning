@@ -11,6 +11,8 @@ class Normal:
                 raise ValueError("stddev must be a positive value")
             self.mean = float(mean)
             self.stddev = float(stddev)
+        elif type(data) is not list:
+            raise TypeError("data must be a list")
         else:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
