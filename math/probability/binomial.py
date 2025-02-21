@@ -31,6 +31,9 @@ class Binomial:
             self.p = p
 
     def comb(self, n, k):
+        """
+        Calculates the factorial of a number
+        """
         if k > n:
             return 0
         if k == 0 or k == n:
