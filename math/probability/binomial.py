@@ -19,6 +19,8 @@ class Binomial:
                 raise ValueError("p must be greater than 0 and less than 1")
             self.n = n
             self.p = p
+        elif type(data) is not list:
+            raise TypeError("data must be a list")
         else:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
