@@ -1,63 +1,50 @@
-#!/usr/bin/env python3
-"""MultiNormal class"""
 import numpy as np
 
 
 class MultiNormal:
-    """Multi
-    Normal class"""
+    """Represents a Multivariate Normal Distribution"""
+
     def __init__(self, data):
-        """Constructor"""
-        # Check if the input data is a 2D numpy.ndarray
+        """Initialize the MultiNormal instance"""
         if not isinstance(data, np.ndarray) or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
 
-        # Get the number of dimensions (d) and number of data points (n)
         d, n = data.shape
-
-        # Check if n (number of data points) is less than 2
         if n < 2:
             raise ValueError("data must contain multiple data points")
 
-        # Compute the mean
-
+        # Mean vector (d, 1)
         self.mean = np.mean(data, axis=1, keepdims=True)
-
-        # Compute the covariance matrix
-        # Subtract the mean from the data points
-        data_centered = data - self.mean
-        self.cov = np.dot(data_centered, data_centered.T) / (n - 1)
+        # Covariance matrix (d, d)
+        self.cov = (data - self.mean) @ (data - self.mean).T / (n - 1)
 
     def pdf(self, x):
-        """Calculate the value of the PDF at a data point"""
-        # Check if the input data is a 2D numpy.ndarray
-        if not isinstance(x, np.ndarray) or len(x.shape) != 2:
+        """Calculate the PDF at a data point"""
+        # Ensure x is a numpy array
+        if not isinstance(x, np.ndarray):
             raise TypeError("x must be a numpy.ndarray")
 
-        # Get the number of dimensions (d) and number of data points (n)
-        d, n = x.shape
+        # Ensure x has the correct shape (d, 1)
+        d, _ = self.mean.shape
+        if x.shape != (d, 1):
+            raise ValueError(f"x must have the shape ({d}, 1)")
 
-        # Check if the dimensions of x match the dimensions of the data
-        if d != self.mean.shape[0]:
-            raise ValueError(f"x must have the shape ({d}, {n})")
-
-        # Compute the determinant of the covariance matrix
+        # Compute determinant of covariance matrix with stability check
         det = np.linalg.det(self.cov)
+        if det <= 1e-10:  # Avoid singular matrix issues
+            raise ValueError("covariance matrix is nearly singular")
 
-        # Check if the covariance matrix is singular
-        if det == 0:
-            raise ValueError("cov cannot be singular")
-
-        # Compute the inverse of the covariance matrix
+        # Compute inverse of covariance matrix
         inv_cov = np.linalg.inv(self.cov)
 
         # Compute the exponent term in the PDF
         diff = x - self.mean
-        exponent = -0.5 * np.sum(np.dot(diff.T, inv_cov) * diff.T, axis=1)
+        exponent = -0.5 * (diff.T @ inv_cov @ diff).item()  # Scalar value
 
         # Compute the normalization term
-        norm = 1 / np.sqrt((2 * np.pi) ** d * det)
+        norm = 1 / np.sqrt(((2 * np.pi) ** d) * det)
 
-        # Compute the PDF
-        pdf = norm * np.exp(exponent)
+        # Compute PDF with float64 precision
+        pdf = float(norm * np.exp(exponent))
+
         return pdf
