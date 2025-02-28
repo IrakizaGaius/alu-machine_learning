@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+"""Function mean_cov"""
 
 
 def mean_cov(X):
