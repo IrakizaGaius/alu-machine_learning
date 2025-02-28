@@ -18,7 +18,6 @@ import numpy as np
 
 
 def mean_cov(X):
-
     """
     Calculate the mean and covariance matrix of a dataset.
 
