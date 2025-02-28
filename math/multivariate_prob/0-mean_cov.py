@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-
-import numpy as np
-
 """
 This module provides a function to compute the mean and covariance matrix
 of a dataset.
@@ -17,9 +14,11 @@ Where:
 - n is the number of data points.
 """
 
+import numpy as np
+
 
 def mean_cov(X):
-    
+
     """
     Calculate the mean and covariance matrix of a dataset.
 
