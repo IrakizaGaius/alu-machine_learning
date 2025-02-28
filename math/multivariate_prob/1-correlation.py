@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import numpy as np
-
 """
 This module provides a function to calculate the correlation matrix
 from a given covariance matrix.
@@ -13,6 +11,8 @@ Where:
 - cov(i, j) is the covariance between variables i and j.
 - std_devs[i] is the standard deviation of variable i.
 """
+
+import numpy as np
 
 
 def correlation(C):
