@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""Posterior Probability"""
+"""
+Intersection
+"""
 import math
 import numpy as np
 
 
-def posterior(x, n, P, Pr):
-    """Function that calculates the posterior probability"""
+def intersection(x, n, P, Pr):
+    """Function that calculates the intersection
+    of obtaining this data with the various hypothetical
+    probabilities"""
+
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
     if not isinstance(x, int) or x < 0:
@@ -30,6 +35,4 @@ def posterior(x, n, P, Pr):
       (P ** x) * ((1 - P) ** (n - x))
       )
     intersection = likelihood * Pr
-    marginal = np.sum(intersection)
-    posterior = intersection / marginal
-    return posterior
+    return intersection
