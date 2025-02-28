@@ -19,6 +19,7 @@ Where:
 
 
 def mean_cov(X):
+    
     """
     Calculate the mean and covariance matrix of a dataset.
 
