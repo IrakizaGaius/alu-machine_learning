@@ -1,3 +1,5 @@
+##!/usr/bin/env python3
+"""Multinormal class to represent a Multivariate Normal Distribution"""
 import numpy as np
 
 
