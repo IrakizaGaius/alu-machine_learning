@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """Same Convolution on Grayscale Images"""
 import numpy as np
 
