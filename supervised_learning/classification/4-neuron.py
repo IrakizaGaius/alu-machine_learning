@@ -57,9 +57,10 @@ performing binary classification"""
         Returns:
             cost (float): cost of the model
         """
-        m = Y.shape[1]
-        cost = -np.sum(Y * np.log(A) + (1 - Y) * np.log(1 - A)) / m
-        return cost
+        a = (Y * np.log(A))
+        b = ((1 - Y) * np.log(1.0000001 - A))
+        sigma = a + b
+        return (- 1 / Y.shape[1]) * np.sum(sigma)
 
     def evaluate(self, X, Y):
         """Evaluates the neuron’s predictions
