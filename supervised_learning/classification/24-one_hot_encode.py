@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
+
+""" One-Hot Encode
 """
-module which contains one_hot_encode() function
-"""
+
 
 import numpy as np
 
 
 def one_hot_encode(Y, classes):
+    """Converts a numeric label vector into a one-hot matrix
+
+    Args:
+        Y (_type_): _description_
+        classes (_type_): _description_
     """
-    converts a numeric label vector into a one-hot matrix
-    """
+    if not isinstance(Y, np.ndarray) or len(Y) == 0:
+        return None
+    if not isinstance(classes, int) or classes < 0:
+        return None
     try:
-        if not isinstance(Y, np.ndarray):
-            return None
-        if not isinstance(classes, int):
-            return None
-        if classes <= np.amax(Y):
-            return None
-        if Y.shape[0] == 0:
-            return None
-        M = np.zeros(shape=(classes, Y.shape[0]))
-        for i in range(classes):
-            M[Y[i]][i] = 1
-        return M
-    except Exception as e:
+        one_hot = np.zeros((classes, Y.shape[0]))
+        one_hot[Y, np.arange(Y.shape[0])] = 1
+        return one_hot
+    except Exception:
         return None
