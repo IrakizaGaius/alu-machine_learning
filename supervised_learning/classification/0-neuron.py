@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-
+"""Defines a single neuron performing binary classification"""
 import numpy as np
+
+
 class Neuron:
-    """Class Neuron that defines a single neuron performing binary classification"""
+    """Class Neuron that defines a single neuron
+performing binary classification"""
     def __init__(self, nx):
         """Constructor of the class Neuron
         Args:
