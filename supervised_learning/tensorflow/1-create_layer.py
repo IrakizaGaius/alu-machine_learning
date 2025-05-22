@@ -17,7 +17,7 @@ def create_layer(prev, n, activation):
     """
 
     #  implement He-et-al initialization for the layer weights
-    het_et_al = tf.keras.initializers.HeNormal()
+    het_et_al = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
 
     # kernel_initializer=het_et_al
     linear_model = tf.layers.Dense(name="layer",
