@@ -15,6 +15,6 @@ def create_train_op(loss, alpha):
     Returns:
         tf.Operation: The training operation.
     """
-    optimizer = tf.train.AdamOptimizer(learning_rate=alpha)
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=alpha)
     train_op = optimizer.minimize(loss)
     return train_op
