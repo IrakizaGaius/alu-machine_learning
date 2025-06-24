@@ -22,13 +22,13 @@ if __name__ == '__main__':
                 reset_timestamp = int(reset_time)
                 current_timestamp = int(datetime.utcnow().timestamp())
                 minutes_remaining = max((reset_timestamp - current_timestamp) // 60, 0)
-                print(f"Reset in {minutes_remaining} min")
+                print("Reset in {} min".format(minutes_remaining))
             else:
                 print("Reset time unknown")
         elif response.status_code == 200:
             data = response.json()
             print(data.get("location", "No location found"))
         else:
-            print(f"Unexpected error: {response.status_code}")
+            print("Unexpected error: {}".format(response.status_code))
     except requests.RequestException as e:
-        print(f"Error: {e}")
+        print("Error: {}".format(e))
