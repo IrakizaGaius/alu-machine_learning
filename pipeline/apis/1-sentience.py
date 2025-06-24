@@ -3,6 +3,7 @@
 
 import requests
 
+
 def sentientPlanets():
     url = "https://swapi-api.alx-tools.com/api/species/"
     sentient_homeworlds = set()

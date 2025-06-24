@@ -3,6 +3,7 @@
 
 import requests
 
+
 def availableShips(passengerCount):
     """
     Returns a list of ships that can carry the given number of passengers.
@@ -17,9 +18,9 @@ def availableShips(passengerCount):
 
         data = response.json()
         for ship in data.get("results", []):
-            passengers = ship.get("passengers", "0").replace(",", "").split(" ")[0]
+            p = ship.get("passengers", "0").replace(",", "").split(" ")[0]
             try:
-                if passengers.isdigit() and int(passengers) >= passengerCount:
+                if p.isdigit() and int(p) >= passengerCount:
                     matching_ships.append(ship["name"])
             except ValueError:
                 continue
