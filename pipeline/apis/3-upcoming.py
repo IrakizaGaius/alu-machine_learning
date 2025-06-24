@@ -45,10 +45,8 @@ def get_upcoming_launch():
             launchpad_name = pad_data.get("name", "N/A")
             locality = pad_data.get("locality", "N/A")
 
-    print(f"{launch_name} ({local_str}) {rocket_name} - {launchpad_name} ({locality})")
+    return(f"{launch_name} ({local_str}) {rocket_name} - {launchpad_name} ({locality})")
 
 # This script fetches the next upcoming SpaceX launch and prints its details.
 if __name__ == '__main__':
-    """Main entry point for the script."""
-    # Call the function to get and print the upcoming launch details
-    get_upcoming_launch()
+    print(get_upcoming_launch())
