@@ -4,7 +4,12 @@
 import requests
 from datetime import datetime
 
+
 def get_upcoming_launch():
+    """Fetches and prints the next upcoming SpaceX launch."""
+    # URLs for SpaceX API endpoints
+    # These URLs are used to fetch upcoming launches, rockets, and launchpads
+    # from the SpaceX API.
     launches_url = "https://api.spacexdata.com/v4/launches/upcoming"
     rockets_url = "https://api.spacexdata.com/v4/rockets/"
     launchpads_url = "https://api.spacexdata.com/v4/launchpads/"
@@ -42,5 +47,8 @@ def get_upcoming_launch():
 
     print(f"{launch_name} ({local_str}) {rocket_name} - {launchpad_name} ({locality})")
 
+# This script fetches the next upcoming SpaceX launch and prints its details.
 if __name__ == '__main__':
+    """Main entry point for the script."""
+    # Call the function to get and print the upcoming launch details
     get_upcoming_launch()
