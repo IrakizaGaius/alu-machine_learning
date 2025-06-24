@@ -21,8 +21,8 @@ if __name__ == '__main__':
             if reset_time:
                 reset_timestamp = int(reset_time)
                 current_timestamp = int(datetime.now(timezone.utc).timestamp())
-                minutes_remaining = max((reset_timestamp - current_timestamp) // 60, 0)
-                print("Reset in {} min".format(minutes_remaining))
+                min_rem = max((reset_timestamp - current_timestamp) // 60, 0)
+                print("Reset in {} min".format(min_rem))
             else:
                 print("Reset time unknown")
         elif response.status_code == 200:
