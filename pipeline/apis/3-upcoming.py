@@ -5,6 +5,8 @@ import requests
 from datetime import datetime, timezone
 
 if __name__ == '__main__':
+    """Fetches the next SpaceX launch and
+    prints its details in a specific format."""
     launches_url = "https://api.spacexdata.com/v4/launches/upcoming"
     rockets_url = "https://api.spacexdata.com/v4/rockets/"
     launchpads_url = "https://api.spacexdata.com/v4/launchpads/"
@@ -24,9 +26,12 @@ if __name__ == '__main__':
 
             # Get launch details
             launch_name = next_launch.get("name", "N/A")
-            date_utc = next_launch.get("date_utc", "")
-            formatted_date = datetime.strptime(date_utc, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
-
+            d_utc = next_launch.get("date_utc", "")
+            # Formatted Date
+            f_date = (
+                datetime.strptime(d_utc, "%Y-%m-%dT%H:%M:%S.%fZ")
+                .strftime("%Y-%m-%d %H:%M:%S")
+            )
             # Get rocket name
             rocket_id = next_launch.get("rocket")
             rocket_name = "N/A"
@@ -46,8 +51,10 @@ if __name__ == '__main__':
                     launchpad_name = pad_data.get("name", "N/A")
                     locality = pad_data.get("locality", "N/A")
 
-            # Final output
-            print(f"{launch_name} ({formatted_date}) {rocket_name} - {launchpad_name} ({locality})")
+            print(
+                f"{launch_name} ({f_date}) {rocket_name} - "
+                f"{launchpad_name} ({locality})"
+            )
 
         else:
             print("Unexpected error: {}".format(response.status_code))
