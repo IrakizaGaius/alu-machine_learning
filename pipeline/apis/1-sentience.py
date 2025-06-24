@@ -5,6 +5,8 @@ import requests
 
 
 def sentientPlanets():
+    """Returns a list of planets that are homeworlds to sentient species.
+    """
     url = "https://swapi-api.alx-tools.com/api/species/"
     sentient_homeworlds = set()
 
