@@ -3,7 +3,7 @@
 
 import sys
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -20,7 +20,7 @@ if __name__ == '__main__':
             reset_time = response.headers.get("X-RateLimit-Reset")
             if reset_time:
                 reset_timestamp = int(reset_time)
-                current_timestamp = int(datetime.utcnow().timestamp())
+                current_timestamp = int(datetime.now(timezone.utc).timestamp())
                 minutes_remaining = max((reset_timestamp - current_timestamp) // 60, 0)
                 print("Reset in {} min".format(minutes_remaining))
             else:
