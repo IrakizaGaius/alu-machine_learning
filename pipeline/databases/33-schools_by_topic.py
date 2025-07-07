@@ -1,24 +1,16 @@
 #!/usr/bin/env python3
 """
-Defines function that returns the list of schools with a specific topic
+Update attributes
 """
 
 
 def schools_by_topic(mongo_collection, topic):
-    """
-    Finds list of all schools with a specific topic
+    """ returns the lsit of schools having a specific topic
 
-    parameters:
-        mongo_collection [pymongo]:
-            the MongoDB collection to use
-        topic [string]:
-            the topic to search for
-
-    returns:
-        list of schools with the given topic
+    Args:
+        mongo_collection (object): pymongo collection object
+        topic (string): topic searched
+        
     """
-    schools = []
-    documents = mongo_collection.find({'topics': {'$all': [topic]}})
-    for doc in documents:
-        schools.append(doc)
+    schools = mongo_collection.find({"topics": topic})
     return schools

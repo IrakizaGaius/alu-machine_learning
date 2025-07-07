@@ -1,14 +1,11 @@
--- safe div
-DELIMITER //
+-- Content: SQL to create a function that safely divides two numbers
+DELIMITER $$
+CREATE FUNCTION SafeDiv(a INT, b INT) RETURNS FLOAT
 
-CREATE FUNCTION SafeDiv (a INT, b INT)
-RETURNS FLOAT
-DETERMINISTIC
 BEGIN
-        IF b = 0 THEN
-           RETURN 0;
-        ELSE
-                RETURN (a / b);
-        END IF;
-END //
-DELIMITER ;
+    IF b = 0 THEN
+        RETURN 0;
+    ELSE
+        RETURN a / b;
+    END IF;
+END $$

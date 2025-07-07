@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 """
-Defines function that lists all documents in MongoDB collection
+List all documents
 """
 
 
 def list_all(mongo_collection):
-    """
-    Lists all documents in given MongoDB collection
+    """ Return a list of all documents
 
-    parameters:
-        mongo_collection: the collection to use
+    Args:
+        mongo_collection (mongocollection): Mongo collection
 
-    returns:
-        list of all documents or 0 if no documents found
+    Returns:
+        _type_: _description_
     """
-    all_docs = []
-    collection = mongo_collection.find()
-    for document in collection:
-        all_docs.append(document)
-    return all_docs
+    all_documents = mongo_collection.find()
+    documents_list = list(all_documents)
+
+    return documents_list
