@@ -27,6 +27,7 @@ class NST:
         self.alpha = alpha
         self.beta = beta
         self.model = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
+        self.model.trainable = False
 
     def scale_image(self, image):
         """scales an image such that the pixels values are between 0 and 1
