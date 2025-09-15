@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 """
-Defines the class RNNCell that represents a cell of a simple RNN
+Defines the class GRUCell that represents a gated recurrent unit
 """
 
 
 import numpy as np
 
 
-class RNNCell:
+class GRUCell:
     """
-    Represents a cell of a simple RNN
+    Represents a gated recurrent unit
 
     class constructor:
         def __init__(self, i, h, o)
 
     public instance attributes:
-        Wh: concatenated hidden state and input data weights
-        bh: concatenated hidden state and input data biases
+        Wz: update gate weights
+        bz: update gate biases
+        Wr: reset gate weights
+        br: reset gate biases
+        Wh: intermediate hidden state and input data weights
+        bh: intermediate hidden state and input data biases
         Wy: output weights
         by: output biases
 
@@ -34,8 +38,12 @@ class RNNCell:
             o: dimensionality of the outputs
 
         creates public instance attributes:
-            Wh: concatenated hidden state and input data weights
-            bh: concatenated hidden state and input data biases
+            Wz: update gate weights
+            bz: update gate biases
+            Wr: reset gate weights
+            br: reset gate biases
+            Wh: intermediate hidden state and input data weights
+            bh: intermediate hidden state and input data biases
             Wy: output weights
             by: output biases
 
@@ -43,6 +51,10 @@ class RNNCell:
         weights will be used on the right side for matrix multiplication
         biases should be initiliazed as zeros
         """
+        self.bz = np.zeros((1, h))
+        self.br = np.zeros((1, h))
+        self.Wz = np.random.normal(size=(h + i, h))
+        self.Wr = np.random.normal(size=(h + i, h))
         self.bh = np.zeros((1, h))
         self.by = np.zeros((1, o))
         self.Wh = np.random.normal(size=(h + i, h))
@@ -61,6 +73,19 @@ class RNNCell:
         e_x = np.exp(x - np.max(x, axis=1, keepdims=True))
         softmax = e_x / e_x.sum(axis=1, keepdims=True)
         return softmax
+
+    def sigmoid(self, x):
+        """
+        Performs the sigmoid function
+
+        parameters:
+            x: the value to perform sigmoid on
+
+        return:
+            sigmoid of x
+        """
+        sigmoid = 1 / (1 + np.exp(-x))
+        return sigmoid
 
     def forward(self, h_prev, x_t):
         """
@@ -83,7 +108,15 @@ class RNNCell:
             h_next: the next hidden state
             y: the output of the cell
         """
-        concatenation = np.concatenate((h_prev, x_t), axis=1)
-        h_next = np.tanh(np.matmul(concatenation, self.Wh) + self.bh)
+        concatenation1 = np.concatenate((h_prev, x_t), axis=1)
+        z_gate = self.sigmoid(np.matmul(concatenation1, self.Wz) + self.bz)
+        r_gate = self.sigmoid(np.matmul(concatenation1, self.Wr) + self.br)
+
+        concatenation2 = np.concatenate((r_gate * h_prev, x_t), axis=1)
+        h_next = np.tanh(np.matmul(concatenation2, self.Wh) + self.bh)
+        h_next *= z_gate
+        h_next += (1 - z_gate) * h_prev
+
         y = self.softmax(np.matmul(h_next, self.Wy) + self.by)
+
         return h_next, y
